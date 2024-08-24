@@ -2,35 +2,21 @@ import React, { useState } from "react";
 import { RiAiGenerate } from "react-icons/ri";
 import { FiSave } from "react-icons/fi";
 import DEFAULT_IMG from "./assets/img/default.png";
-import axios from "axios";
+import { generateImage } from "./utils/imageApi";
+import { saveImage } from "./utils/fileSaver";
 import "./ImageGenerator.css"; // Import the CSS file
 
 const ImageGenerator = () => {
 	const [prompt, setPrompt] = useState("");
-	const [imageUrl, setImageUrl] = useState();
+	const [imageData, setImageData] = useState(null); // Changed to handle base64 data
 	const [loading, setLoading] = useState(false);
 
 	const handleGenerateImage = async () => {
 		if (!prompt) return;
 		setLoading(true);
 		try {
-			const response = await axios.post(
-				"https://api.openai.com/v1/images/generations",
-				{
-					model: "dall-e-3",
-					prompt,
-					n: 1,
-					size: "1024x1024",
-				},
-				{
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-					},
-				}
-			);
-			const imageData = response.data.data[0];
-			setImageUrl(imageData.url);
+			const imageData = await generateImage(prompt);
+			setImageData(imageData);
 		} catch (error) {
 			console.error("Error generating image:", error);
 		} finally {
@@ -38,22 +24,16 @@ const ImageGenerator = () => {
 		}
 	};
 
-	const handleSaveImage = () => {
-		if (!imageUrl) return;
-		const link = document.createElement("a");
-		link.href = imageUrl;
-		link.download = "ai-generated-image.png";
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-	};
-
 	return (
 		<div className="image-generator-container">
 			<h1 className="title">AI Image Generator</h1>
 			<div className="image-container">
 				<img
-					src={imageUrl ? imageUrl : DEFAULT_IMG}
+					src={
+						imageData
+							? `data:image/png;base64,${imageData}`
+							: DEFAULT_IMG
+					}
 					alt="Generated AI"
 					className="generated-image"
 				/>
@@ -74,9 +54,9 @@ const ImageGenerator = () => {
 				>
 					{loading ? "Generating..." : <RiAiGenerate />}
 				</button>
-				{imageUrl && (
+				{imageData && (
 					<button
-						onClick={handleSaveImage}
+						onClick={() => saveImage(imageData)}
 						className="save-button"
 					>
 						<FiSave />
