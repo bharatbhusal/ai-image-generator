@@ -10,7 +10,6 @@ const ImageGenerator = () => {
 		if (!prompt) return;
 		setLoading(true);
 		try {
-			console.log(process.env.REACT_APP_OPENAI_API_KEY);
 			const response = await axios.post(
 				"https://api.openai.com/v1/images/generations",
 				{
