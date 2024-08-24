@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { RiAiGenerate } from "react-icons/ri";
+import { FiSave } from "react-icons/fi";
+import DEFAULT_IMG from "./assets/img/default.png";
 import axios from "axios";
+import "./ImageGenerator.css"; // Import the CSS file
 
 const ImageGenerator = () => {
 	const [prompt, setPrompt] = useState("");
-	const [imageUrl, setImageUrl] = useState("");
+	const [imageUrl, setImageUrl] = useState();
 	const [loading, setLoading] = useState(false);
 
 	const handleGenerateImage = async () => {
@@ -25,7 +29,6 @@ const ImageGenerator = () => {
 					},
 				}
 			);
-			console.log(response.data);
 			const imageData = response.data.data[0];
 			setImageUrl(imageData.url);
 		} catch (error) {
@@ -46,44 +49,40 @@ const ImageGenerator = () => {
 	};
 
 	return (
-		<div style={{ textAlign: "center", marginTop: "50px" }}>
-			<h1>AI Image Generator</h1>
-			<input
-				type="text"
-				value={prompt}
-				onChange={(e) => setPrompt(e.target.value)}
-				placeholder="Enter your prompt"
-				style={{
-					padding: "10px",
-					width: "300px",
-					marginBottom: "20px",
-				}}
-			/>
-			<div>
+		<div className="image-generator-container">
+			<h1 className="title">AI Image Generator</h1>
+			<div className="image-container">
+				<img
+					src={imageUrl ? imageUrl : DEFAULT_IMG}
+					alt="Generated AI"
+					className="generated-image"
+				/>
+			</div>
+
+			<div className="prompt-container">
+				<input
+					type="text"
+					value={prompt}
+					onChange={(e) => setPrompt(e.target.value)}
+					placeholder="Enter your prompt"
+					className="prompt-input"
+				/>
 				<button
 					onClick={handleGenerateImage}
-					style={{ padding: "10px 20px", marginRight: "10px" }}
+					className="generate-button"
+					disabled={loading}
 				>
-					{loading ? "Generating..." : "Generate Image"}
+					{loading ? "Generating..." : <RiAiGenerate />}
 				</button>
 				{imageUrl && (
 					<button
 						onClick={handleSaveImage}
-						style={{ padding: "10px 20px" }}
+						className="save-button"
 					>
-						Save Image
+						<FiSave />
 					</button>
 				)}
 			</div>
-			{imageUrl && (
-				<div style={{ marginTop: "20px" }}>
-					<img
-						src={imageUrl}
-						alt="Generated AI"
-						style={{ maxWidth: "100%", borderRadius: "10px" }}
-					/>
-				</div>
-			)}
 		</div>
 	);
 };
