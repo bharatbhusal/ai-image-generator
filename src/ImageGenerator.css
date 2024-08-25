@@ -5,8 +5,9 @@
 	align-items: space-between;
 	justify-content: space-between;
 	padding: 20px;
-	max-width: 100%;
+	max-width: max-content;
 	box-sizing: border-box;
+	width: 100%;
 }
 
 .title {
@@ -14,6 +15,9 @@
 	margin-bottom: 20px;
 	color: #333;
 	text-align: center;
+	background-color: #007bff4b;
+	padding: 5px;
+	border-radius: 10px;
 }
 
 .image-container {
@@ -60,7 +64,8 @@
 
 .generate-button,
 .save-button {
-	padding: 10px 20px;
+	padding: 10px;
+	height: 50px;
 	font-size: 1em;
 	border-radius: 8px;
 	border: none;
@@ -82,11 +87,9 @@
 	cursor: not-allowed;
 }
 
-/* Styles for larger screens (tablets and desktops) */
 @media (min-width: 600px) {
 	.image-generator-container {
-		margin-left: 20%;
-		margin-right: 20%;
+		max-width: 40vw;
 	}
 
 	.title {
