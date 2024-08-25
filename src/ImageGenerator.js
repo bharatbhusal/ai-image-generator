@@ -4,6 +4,7 @@ import { FiSave } from "react-icons/fi";
 import DEFAULT_IMG from "./assets/img/default.png";
 import { generateImage } from "./utils/imageApi";
 import { saveImage } from "./utils/fileSaver";
+import { ScaleLoader } from "react-spinners";
 import "./ImageGenerator.css"; // Import the CSS file
 
 const ImageGenerator = () => {
@@ -26,7 +27,7 @@ const ImageGenerator = () => {
 
 	return (
 		<div className="image-generator-container">
-			<h1 className="title">AI Image Generator</h1>
+			<h1 className="title">Imagine Image</h1>
 			<div className="image-container">
 				<img
 					src={
@@ -52,7 +53,11 @@ const ImageGenerator = () => {
 					className="generate-button"
 					disabled={loading}
 				>
-					{loading ? "Generating..." : <RiAiGenerate />}
+					{loading ? (
+						<ScaleLoader color="white" height={20} width={1} />
+					) : (
+						<RiAiGenerate />
+					)}
 				</button>
 				{imageData && (
 					<button
