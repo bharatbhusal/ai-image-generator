@@ -41,7 +41,7 @@ A simple React application that allows users to enter a prompt and generate an A
 
 3. **Set up environment variables:**
 
-   Create a `.env` file in the root directory of the project and add the following line:
+   Rename `.env.example` to `.env` file in the root directory of the project and add the following line:
 
    ```plaintext
    REACT_APP_OPENAI_API_KEY=your_openai_api_key_here
