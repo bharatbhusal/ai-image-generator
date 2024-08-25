@@ -1,6 +1,7 @@
+import { fileNameGenerator } from "./fileNameGenerator";
 export const saveImage = (
 	base64Data,
-	fileName = "downloaded-image.png"
+	fileName = fileNameGenerator()
 ) => {
 	try {
 		// Create a link element

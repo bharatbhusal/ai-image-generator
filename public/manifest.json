@@ -1,0 +1,15 @@
+{
+	"name": "Imagine Image",
+	"short_name": "Imagine",
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#ffffff",
+	"background_color": "#ffffff",
+	"icons": [
+		{
+			"src": "logo.png",
+			"sizes": "1024x1024",
+			"type": "image/png"
+		}
+	]
+}
