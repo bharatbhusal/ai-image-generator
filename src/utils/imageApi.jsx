@@ -23,7 +23,6 @@ export const generateImage = async (prompt) => {
 		const base64Data = response.data.data[0].b64_json;
 		return base64Data;
 	} catch (error) {
-		console.error("Error generating image:", error);
 		throw error;
 	}
 };

@@ -5,21 +5,31 @@ import DEFAULT_IMG from "./assets/img/default.png";
 import { generateImage } from "./utils/imageApi";
 import { saveImage } from "./utils/fileSaver";
 import { ScaleLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ImageGenerator.css"; // Import the CSS file
 
 const ImageGenerator = () => {
 	const [prompt, setPrompt] = useState("");
-	const [imageData, setImageData] = useState(null); // Changed to handle base64 data
+	const [imageData, setImageData] = useState(null); // Handle base64 data
 	const [loading, setLoading] = useState(false);
 
 	const handleGenerateImage = async () => {
-		if (!prompt) return;
+		if (!prompt.trim()) {
+			toast.error("Prompt cannot be empty");
+			return;
+		}
+
 		setLoading(true);
 		try {
-			const imageData = await generateImage(prompt);
-			setImageData(imageData);
+			const generatedImageData = await generateImage(prompt);
+			setImageData(generatedImageData);
 		} catch (error) {
 			console.error("Error generating image:", error);
+			toast.error(
+				error?.response?.data?.error?.message ||
+					"Error generating image. Please try again or try with a different prompt."
+			);
 		} finally {
 			setLoading(false);
 		}
