@@ -8,7 +8,7 @@ export const generateImage = async (prompt) => {
 				model: "dall-e-3",
 				prompt,
 				n: 1,
-				size: "1024x1024",
+				size: "1792x1024",
 				response_format: "b64_json",
 			},
 			{
