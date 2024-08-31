@@ -36,6 +36,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.post("/health", (req, res) => {
+	res.status(200).send("Server is running.");
+});
 app.post("/generate", generateImage);
 
 app.listen(port, () => {
