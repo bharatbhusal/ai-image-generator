@@ -11,6 +11,7 @@ import "./ImageGenerator.css"; // Import the CSS file
 
 const ImageGenerator = () => {
 	const [prompt, setPrompt] = useState("");
+	const [resolution, setResolution] = useState("1024x1024"); // Default resolution
 	const [imageData, setImageData] = useState(null); // Handle base64 data
 	const [loading, setLoading] = useState(false);
 
@@ -22,7 +23,10 @@ const ImageGenerator = () => {
 
 		setLoading(true);
 		try {
-			const generatedImageData = await generateImage(prompt);
+			const generatedImageData = await generateImage({
+				prompt,
+				resolution,
+			});
 			setImageData(generatedImageData);
 		} catch (error) {
 			console.error("Error generating image:", error);
@@ -32,6 +36,7 @@ const ImageGenerator = () => {
 			);
 		} finally {
 			setLoading(false);
+			setResolution("1024x1024");
 		}
 	};
 
@@ -58,25 +63,54 @@ const ImageGenerator = () => {
 					placeholder="Enter your prompt"
 					className="prompt-input"
 				/>
-				<button
-					onClick={handleGenerateImage}
-					className="generate-button"
-					disabled={loading}
-				>
-					{loading ? (
-						<ScaleLoader color="white" height={20} width={1} />
-					) : (
-						<RiAiGenerate />
-					)}
-				</button>
-				{imageData && (
+
+				<div className="resolution-buttons">
 					<button
-						onClick={() => saveImage(imageData)}
-						className="save-button"
+						onClick={() => setResolution("1024x1024")}
+						className={`resolution-button ${
+							resolution === "1024x1024" ? "active" : ""
+						}`}
 					>
-						<FiSave />
+						Square
 					</button>
-				)}
+					<button
+						onClick={() => setResolution("1792x1024")}
+						className={`resolution-button ${
+							resolution === "1792x1024" ? "active" : ""
+						}`}
+					>
+						Wide
+					</button>
+					<button
+						onClick={() => setResolution("1024x1792")}
+						className={`resolution-button ${
+							resolution === "1024x1792" ? "active" : ""
+						}`}
+					>
+						Tall
+					</button>
+				</div>
+				<div className="generate-save-buttons">
+					<button
+						onClick={handleGenerateImage}
+						className="generate-button"
+						disabled={loading}
+					>
+						{loading ? (
+							<ScaleLoader color="white" height={20} width={1} />
+						) : (
+							<RiAiGenerate />
+						)}
+					</button>
+					{imageData && (
+						<button
+							onClick={() => saveImage(imageData)}
+							className="save-button"
+						>
+							<FiSave />
+						</button>
+					)}
+				</div>
 			</div>
 		</div>
 	);
