@@ -8,7 +8,7 @@ import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./ImageGenerator.css"; // Import the CSS file
-
+//enhancements for readability, maintainability, and user experience
 const resolutions = {
   SQUARE: "1024x1024",
   WIDE: "1792x1024",
