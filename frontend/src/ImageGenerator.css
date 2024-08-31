@@ -11,8 +11,7 @@
 }
 
 .title {
-	font-size: 2em;
-	margin-bottom: 20px;
+	font-size: 2rem;
 	color: #333;
 	text-align: center;
 	background-color: #007bff4b;
@@ -45,7 +44,7 @@
 
 .prompt-container {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	align-items: space-between;
 	justify-content: space-around;
 	gap: 10px;
@@ -65,33 +64,52 @@
 .generate-button,
 .save-button {
 	padding: 10px;
-	height: 50px;
+	width: 100%;
+	height: 100%;
 	font-size: 1em;
 	border-radius: 8px;
 	border: none;
 	cursor: pointer;
 	color: white;
-	background-color: #007bff;
+	background-color: #0fac3b;
 	transition: background-color 0.3s ease;
-	width: auto;
+	text-align: center;
+	overflow: hidden;
+}
+.resolution-buttons,
+.generate-save-buttons {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	width: 100%;
+}
+.resolution-button {
+	width: 100%;
+	padding: 10px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	color: white;
+	background-color: #727e8c;
+	transition: background-color 0.3s ease;
 	text-align: center;
 }
 
 .generate-button:hover,
-.save-button:hover {
-	background-color: #0056b3;
+.save-button:hover,
+.resolution-button:hover {
+	background-color: #6e8e72;
 }
 
+.resolution-button.active {
+	background-color: #0fac3b;
+}
 .generate-button:disabled {
 	background-color: #cccccc;
 	cursor: not-allowed;
 }
 
 @media (min-width: 600px) {
-	.image-generator-container {
-		max-width: 40vw;
-	}
-
 	.title {
 		font-size: 2.5em;
 		margin-bottom: 30px;
