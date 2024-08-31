@@ -6,10 +6,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 const corsOptions = {
-	origin: [
-		"https://imagine-image.vercel.app/",
-		"http://localhost:3001",
-	],
+	origin: "*",
 	methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
 	allowedHeaders: [
 		"Content-Type",
@@ -36,6 +33,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.post("/health", (req, res) => {
+	res.status(200).send("Server is running.");
+});
 app.post("/generate", generateImage);
 
 app.listen(port, () => {
