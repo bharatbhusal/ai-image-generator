@@ -7,12 +7,12 @@ import { saveImage } from "./utils/fileSaver";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./ImageGenerator.css"; // Import the CSS file
+import "./ImageGenerator.css";
 
 const ImageGenerator = () => {
 	const [prompt, setPrompt] = useState("");
-	const [resolution, setResolution] = useState("1024x1024"); // Default resolution
-	const [imageData, setImageData] = useState(null); // Handle base64 data
+	const [resolution, setResolution] = useState("1024x1024");
+	const [imageData, setImageData] = useState(null);
 	const [loading, setLoading] = useState(false);
 
 	const handleGenerateImage = async () => {

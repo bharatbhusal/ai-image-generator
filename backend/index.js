@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 const corsOptions = {
-	origin: "*",
+	origin: ["https://imagine-image.vercel.app"],
 	methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
 	allowedHeaders: [
 		"Content-Type",
